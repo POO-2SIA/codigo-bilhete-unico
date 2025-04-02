@@ -12,7 +12,7 @@ import static java.lang.Double.parseDouble;
 //Utilizamos o static na hora de importar para indicar que os métodos pertencem à classe, e não a um objeto!
 
 public class Util {
-    static final int N = 5; ;
+    static final int N = 5;
     private Bilhete[] bilhetes = new Bilhete[N];
     private int i = 0;
 
@@ -143,9 +143,15 @@ public class Util {
     private void removerBilhete() {
         int posicao = pesquisarBilhete();
         if (posicao != -1) {
-            bilhetes[posicao] = bilhetes[i - 1];
-            showMessageDialog(null, "Bilhete removido com sucesso!");
-            i--;
+            showMessageDialog(null, "Usuário: " + bilhetes[posicao].usuario.nome + "\nCPF: " + bilhetes[posicao].usuario.cpf);
+            if (showConfirmDialog(null, "Tem certeza que deseja remover esse bilhete?") == 0) {
+                bilhetes[posicao] = bilhetes[i - 1];
+                showMessageDialog(null, "Bilhete removido com sucesso!");
+                i--;
+            } else {
+                showMessageDialog(null, "Operação cancelada!");
+            }
+
         }
     }
 
@@ -162,7 +168,7 @@ public class Util {
     private void consultar() {
         int posicao = pesquisarBilhete();
         if (posicao != -1) {
-           showMessageDialog(null, "Saldo: R$" + String.format("%.2f", bilhetes[posicao].consultarSaldo()));
+           showMessageDialog(null, "Usuário: " + bilhetes[posicao].usuario.nome + "\nSaldo: R$" + String.format("%.2f", bilhetes[posicao].consultarSaldo()));
         }
     }
 
